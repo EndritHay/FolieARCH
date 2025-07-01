@@ -13,6 +13,13 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline';
 
+interface NavigationItem {
+  name: string;
+  icon: React.ComponentType<{ className?: string }>;
+  href: string;
+  download?: boolean;
+}
+
 function App() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -222,7 +229,13 @@ function App() {
     { name: 'Projects', icon: Square3Stack3DIcon, href: '#projects' },
     { name: 'Process', icon: DocumentIcon, href: '#process' },
     { name: 'About', icon: UserGroupIcon, href: '#about' },
-    { name: 'Contact', icon: PhoneIcon, href: '#contact' }
+    { name: 'Contact', icon: PhoneIcon, href: '#contact' },
+    { 
+      name: 'CV', 
+      icon: DocumentIcon, 
+      href: '/Folies_CV.pdf',
+      download: true
+    }
   ];
 
   return (
@@ -254,6 +267,7 @@ function App() {
               <motion.a
                 key={item.name}
                 href={item.href}
+                download={item.download}
                 className="flex items-center gap-3 px-4 py-3 mb-2 rounded-lg text-white/70 hover:text-white hover:bg-accent/20 transition-all duration-300"
                 onClick={() => setIsSidebarOpen(false)}
                 whileHover={{ x: 10 }}
