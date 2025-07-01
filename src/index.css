@@ -45,7 +45,7 @@
   }
 
   .btn-secondary {
-    @apply bg-accent text-accent bg-opacity-20 hover:bg-opacity-30;
+    @apply bg-accent text-white bg-opacity-20 hover:bg-opacity-30;
   }
 
   .input {
