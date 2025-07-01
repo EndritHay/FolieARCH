@@ -1107,7 +1107,7 @@ function App() {
               <h3 className="text-2xl font-bold mb-2"> Folie's Architectural Masterpiece </h3>
             </motion.div>
             <p className="text-accent/60">
-              © {new Date().getFullYear()} All rights reserved.
+              © {new Date().getFullYear()} Aligator.xyz All rights reserved.
             </p>
           </div>
         </div>
