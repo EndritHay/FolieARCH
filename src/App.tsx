@@ -224,8 +224,21 @@ function App() {
     }
   ];
 
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, item: NavigationItem) => {
+    if (item.download) return; // Let download links behave normally
+    
+    e.preventDefault();
+    const targetId = item.href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsSidebarOpen(false);
+    }
+  };
+
   const navigationItems = [
-    { name: 'Home', icon: HomeIcon, href: '#home' },
+    { name: 'Home', icon: HomeIcon, href: '#hero' },
     { name: 'Projects', icon: Square3Stack3DIcon, href: '#projects' },
     { name: 'Process', icon: DocumentIcon, href: '#process' },
     { name: 'About', icon: UserGroupIcon, href: '#about' },
@@ -269,7 +282,7 @@ function App() {
                 href={item.href}
                 download={item.download}
                 className="flex items-center gap-3 px-4 py-3 mb-2 rounded-lg text-white/70 hover:text-white hover:bg-accent/20 transition-all duration-300"
-                onClick={() => setIsSidebarOpen(false)}
+                onClick={(e) => handleNavigation(e, item)}
                 whileHover={{ x: 10 }}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -312,7 +325,7 @@ function App() {
 
       <div ref={containerRef} className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-dark via-primary to-secondary overflow-hidden">
+        <section id="hero" className="relative h-screen flex items-center justify-center bg-gradient-to-br from-dark via-primary to-secondary overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487958449943-2429e8be8625')] bg-cover bg-center opacity-10"></div>
           
           {/* Grid Pattern Background */}
@@ -485,7 +498,7 @@ function App() {
         </section>
 
         {/* Projects Section with 3D Cards */}
-        <section className="section bg-dark relative overflow-hidden" id="projects">
+        <section id="projects" className="section bg-dark relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-b from-dark/50 to-dark"></div>
             {generateArchitecturalElements()}
@@ -568,7 +581,7 @@ function App() {
         </section>
 
         {/* Interactive Process Section */}
-        <section className="section bg-gradient-to-br from-primary to-dark relative overflow-hidden">
+        <section id="process" className="section bg-gradient-to-br from-primary to-dark relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-dark/50"></div>
             {generateArchitecturalElements()}
@@ -687,7 +700,7 @@ function App() {
         </section>
 
         {/* Interactive Blueprint Section */}
-        <section className="section relative overflow-hidden">
+        <section id="about" className="section relative overflow-hidden">
           <div className="container">
             <motion.h2
               className="text-4xl md:text-5xl font-bold text-center mb-16 font-serif"
@@ -1034,7 +1047,7 @@ function App() {
         </section>
 
         {/* Design Inspiration Mosaic */}
-        <section className="section relative overflow-hidden py-20">
+        <section id="about" className="section relative overflow-hidden py-20">
           <div className="container">
             <motion.h2
               className="text-4xl md:text-5xl font-bold text-center mb-16 font-serif"
@@ -1124,7 +1137,7 @@ function App() {
         </section>
 
         {/* Contact Section with Floating Elements */}
-        <section className="section bg-dark text-white relative overflow-hidden" id="contact">
+        <section id="contact" className="section bg-dark text-white relative overflow-hidden">
           <div className="absolute inset-0">
             {generateArchitecturalElements()}
           </div>
