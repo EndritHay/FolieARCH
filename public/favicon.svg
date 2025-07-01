@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Building shape with accent color -->
+  <path d="M16 4L28 12V28H4V12L16 4Z" stroke="#e94560" stroke-width="2" fill="none"/>
+  <!-- Architectural details -->
+  <path d="M16 4V28M4 12L28 12" stroke="#e94560" stroke-width="2" opacity="0.6"/>
+  <!-- Modern detail lines -->
+  <path d="M10 16H22M10 20H22M10 24H22" stroke="#e94560" stroke-width="2" opacity="0.4"/>
+</svg> 
