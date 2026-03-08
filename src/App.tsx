@@ -178,14 +178,18 @@ function App() {
     }
   ];
 
+  // Base URL for assets (works on Netlify and local; Vite sets BASE_URL in build)
+  const base = (import.meta.env.BASE_URL ?? "/").replace(/\/?$/, "/");
+  const projectAsset = (path: string) => path.startsWith("http") ? path : `${base}${path.replace(/^\//, "")}`;
+
   const featuredProjects: FeaturedProject[] = [
     {
       title: "Pavarsia Park",
       description: "Contemporary design meets sustainable living",
       icon: HomeIcon,
-      image: "/projects/pavarsiapark1.png",
-      photos: ["/projects/pavarsiapark1.png"],
-      videos: ["/projects/parkupavarsia1.mp4","/projects/parkupavarsia2.mp4"]
+      image: projectAsset("projects/pavarsiapark1.png"),
+      photos: [projectAsset("projects/pavarsiapark1.png")],
+      videos: [projectAsset("projects/parkupavarsia1.mp4"), projectAsset("projects/parkupavarsia2.mp4")]
     },
     {
       title: "Urban Complex",
