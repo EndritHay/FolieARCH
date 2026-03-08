@@ -6,11 +6,15 @@ import {
   BuildingOffice2Icon,
   HomeIcon,
   ArrowUpIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
   UserGroupIcon,
   DocumentIcon,
   PhoneIcon,
   Bars3Icon,
-  XMarkIcon
+  XMarkIcon,
+  PhotoIcon,
+  FilmIcon
 } from '@heroicons/react/24/outline';
 
 interface NavigationItem {
@@ -18,6 +22,15 @@ interface NavigationItem {
   icon: React.ComponentType<{ className?: string }>;
   href: string;
   download?: boolean;
+}
+
+interface FeaturedProject {
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+  image: string;
+  photos?: string[];
+  videos?: string[];
 }
 
 function App() {
@@ -30,6 +43,10 @@ function App() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [selectedLayers, setSelectedLayers] = useState(['foundation', 'structure', 'interior', 'facade']);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<FeaturedProject | null>(null);
+  const [modalTab, setModalTab] = useState<'photos' | 'videos'>('photos');
+  const [modalPhotoIndex, setModalPhotoIndex] = useState<number | null>(null);
+  const [modalVideoIndex, setModalVideoIndex] = useState(0);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -160,6 +177,57 @@ function App() {
       features: ["Smart Home", "IoT Ready", "Automated Systems"]
     }
   ];
+
+  const featuredProjects: FeaturedProject[] = [
+    {
+      title: "Pavarsia Park",
+      description: "Contemporary design meets sustainable living",
+      icon: HomeIcon,
+      image: "/projects/pavarsiapark1.png",
+      photos: ["/projects/pavarsiapark1.png"],
+      videos: ["/projects/parkupavarsia1.mp4","/projects/parkupavarsia2.mp4"]
+    },
+    {
+      title: "Urban Complex",
+      description: "Redefining urban living spaces",
+      icon: BuildingOffice2Icon,
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      photos: ["https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"],
+      videos: []
+    },
+    {
+      title: "Cultural Center",
+      description: "Bridging art and architecture",
+      icon: Square3Stack3DIcon,
+      image: "https://images.unsplash.com/photo-1600607687644-aac4c3eab3c4",
+      photos: ["https://images.unsplash.com/photo-1600607687644-aac4c3eab3c4"],
+      videos: []
+    }
+  ];
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+      setModalPhotoIndex(null);
+      setModalVideoIndex(0);
+      const hasPhotos = (selectedProject.photos?.length ?? 0) > 0;
+      const hasVideos = (selectedProject.videos?.length ?? 0) > 0;
+      setModalTab(hasPhotos ? "photos" : hasVideos ? "videos" : "photos");
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedProject]);
 
   const processSteps = [
     {
@@ -515,26 +583,7 @@ function App() {
             </motion.h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Modern Villa",
-                  description: "Contemporary design meets sustainable living",
-                  icon: HomeIcon,
-                  image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
-                },
-                {
-                  title: "Urban Complex",
-                  description: "Redefining urban living spaces",
-                  icon: BuildingOffice2Icon,
-                  image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
-                },
-                {
-                  title: "Cultural Center",
-                  description: "Bridging art and architecture",
-                  icon: Square3Stack3DIcon,
-                  image: "https://images.unsplash.com/photo-1600607687644-aac4c3eab3c4"
-                }
-              ].map((project, index) => (
+              {featuredProjects.map((project, index) => (
                 <motion.div
                   key={index}
                   className="group relative perspective"
@@ -566,6 +615,8 @@ function App() {
                       </p>
                       
                       <motion.button
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
                         className="mt-6 px-6 py-3 bg-white/10 rounded-lg border-2 border-white/20 text-white backdrop-blur-sm hover:bg-white/20 transition-all duration-300 font-medium tracking-wide"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -1247,6 +1298,210 @@ function App() {
           </div>
         </footer>
       </div>
+
+      {/* Project detail modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            onClick={() => modalPhotoIndex === null ? setSelectedProject(null) : setModalPhotoIndex(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl bg-dark border border-white/10 shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with clear Close */}
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/10 shrink-0 bg-dark/80">
+                <h3 className="text-xl sm:text-2xl font-bold text-white font-serif truncate pr-2">
+                  {selectedProject.title}
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(null)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-colors border border-white/20"
+                  aria-label="Close"
+                >
+                  <XMarkIcon className="w-5 h-5 shrink-0" />
+                  <span>Close</span>
+                </button>
+              </div>
+
+              {/* Tabs: Photos / Videos (only when both exist) */}
+              {(selectedProject.photos?.length ?? 0) > 0 && (selectedProject.videos?.length ?? 0) > 0 && (
+                <div className="flex border-b border-white/10 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setModalTab("photos")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${
+                      modalTab === "photos"
+                        ? "text-white bg-accent/20 border-b-2 border-accent"
+                        : "text-white/60 hover:text-white/90 hover:bg-white/5"
+                    }`}
+                  >
+                    <PhotoIcon className="w-6 h-6" />
+                    <span>Photos</span>
+                    <span className="text-sm opacity-80">({selectedProject.photos?.length ?? 0})</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setModalTab("videos")}
+                    className={`flex-1 flex items-center justify-center gap-2 py-4 font-semibold transition-colors ${
+                      modalTab === "videos"
+                        ? "text-white bg-accent/20 border-b-2 border-accent"
+                        : "text-white/60 hover:text-white/90 hover:bg-white/5"
+                    }`}
+                  >
+                    <FilmIcon className="w-6 h-6" />
+                    <span>Videos</span>
+                    <span className="text-sm opacity-80">({selectedProject.videos?.length ?? 0})</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Content area */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+                {modalTab === "photos" && (selectedProject.photos?.length ?? 0) > 0 && (
+                  <div>
+                    <p className="text-white/70 text-sm mb-4">Click any photo to view it larger. Use arrows to move between photos.</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {selectedProject.photos!.map((url, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setModalPhotoIndex(i)}
+                          className="rounded-xl overflow-hidden bg-white/5 border-2 border-transparent hover:border-accent/50 focus:border-accent focus:outline-none transition-colors"
+                        >
+                          <img
+                            src={url}
+                            alt={`${selectedProject.title} photo ${i + 1}`}
+                            className="w-full aspect-square object-cover"
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {modalTab === "videos" && (selectedProject.videos?.length ?? 0) > 0 && (
+                  <div className="space-y-4">
+                    <p className="text-white/70 text-sm">Watch the video below. Use the buttons to see more videos.</p>
+                    <div className="rounded-xl overflow-hidden bg-black/50 border border-white/10">
+                      {(() => {
+                        const url = selectedProject.videos![modalVideoIndex];
+                        const isYoutube = /youtube\.com|youtu\.be/i.test(url);
+                        let embedSrc = url;
+                        if (isYoutube && url.includes("youtu.be/")) {
+                          const id = url.split("youtu.be/")[1]?.split("?")[0] ?? "";
+                          embedSrc = `https://www.youtube.com/embed/${id}`;
+                        } else if (isYoutube && url.includes("watch?v=")) {
+                          embedSrc = url.replace("watch?v=", "embed/");
+                        }
+                        return isYoutube ? (
+                          <iframe
+                            src={embedSrc}
+                            title={`${selectedProject.title} video ${modalVideoIndex + 1}`}
+                            className="w-full aspect-video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <video src={url} controls className="w-full aspect-video" />
+                        );
+                      })()}
+                    </div>
+                    <div className="flex items-center justify-center gap-4">
+                      <button
+                        type="button"
+                        onClick={() => setModalVideoIndex((prev) => Math.max(0, prev - 1))}
+                        disabled={modalVideoIndex === 0}
+                        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-white/20"
+                      >
+                        <ArrowLeftIcon className="w-5 h-5" />
+                        <span>Previous video</span>
+                      </button>
+                      <span className="text-white/80 font-medium">
+                        Video {modalVideoIndex + 1} of {selectedProject.videos!.length}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setModalVideoIndex((prev) => Math.min(selectedProject.videos!.length - 1, prev + 1))}
+                        disabled={modalVideoIndex === selectedProject.videos!.length - 1}
+                        className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-white/20"
+                      >
+                        <span>Next video</span>
+                        <ArrowRightIcon className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {(!selectedProject.photos?.length && !selectedProject.videos?.length) && (
+                  <p className="text-white/70 text-center py-12 text-lg">No photos or videos added yet for this project.</p>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Photo lightbox (full-screen overlay) */}
+            <AnimatePresence>
+              {selectedProject && modalPhotoIndex !== null && selectedProject.photos && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
+                  onClick={() => setModalPhotoIndex(null)}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setModalPhotoIndex(null)}
+                    className="absolute top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium z-10"
+                  >
+                    <XMarkIcon className="w-5 h-5" />
+                    <span>Close</span>
+                  </button>
+                  {modalPhotoIndex > 0 && (
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); setModalPhotoIndex((p) => p! - 1); }}
+                      className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white z-10"
+                      aria-label="Previous photo"
+                    >
+                      <ArrowLeftIcon className="w-6 h-6" />
+                    </button>
+                  )}
+                  <img
+                    src={selectedProject.photos[modalPhotoIndex]}
+                    alt={`${selectedProject.title} photo ${modalPhotoIndex + 1}`}
+                    className="max-w-full max-h-[85vh] object-contain rounded-lg"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                  {modalPhotoIndex < selectedProject.photos.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); setModalPhotoIndex((p) => p! + 1); }}
+                      className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white z-10"
+                      aria-label="Next photo"
+                    >
+                      <ArrowRightIcon className="w-6 h-6" />
+                    </button>
+                  )}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">
+                    Photo {modalPhotoIndex + 1} of {selectedProject.photos.length}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
