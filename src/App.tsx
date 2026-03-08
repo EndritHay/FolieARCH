@@ -185,11 +185,21 @@ function App() {
   const featuredProjects: FeaturedProject[] = [
     {
       title: "Pavarsia Park",
-      description: "Contemporary design meets sustainable living",
+      description: "A vibrant urban park blending modern landscape architecture with community gathering spaces",
       icon: HomeIcon,
       image: projectAsset("projects/pavarsiapark1.png"),
       photos: [projectAsset("projects/pavarsiapark1.png")],
-      videos: [projectAsset("projects/parkupavarsia1.mp4"), projectAsset("projects/parkupavarsia2.mp4")]
+      videos: [
+        projectAsset("projects/parkupavarsia1.mp4"),
+        projectAsset("projects/parkupavarsia2.mp4"),
+        projectAsset("projects/parkupavarsia3.mp4"),
+        projectAsset("projects/parkupavarsia4.mp4"),
+        projectAsset("projects/parkupavarsia5.mp4"),
+        projectAsset("projects/parkupavarsia6.mp4"),
+        projectAsset("projects/parkupavarsia7.mp4"),
+        projectAsset("projects/parkupavarsia8.mp4"),
+        projectAsset("projects/parkupavarsia9.mp4")
+      ]
     },
     {
       title: "Urban Complex",
