@@ -239,8 +239,19 @@ function App() {
         projectAsset("projects/ferizaj1.png"),
         projectAsset("projects/ferizaj2.png"),
       ],
-    }
-
+    },
+    
+    {
+      title: "Ferma vertikale Presheve",
+      description: "Vertical farm",
+      icon: Square3Stack3DIcon,
+      image: projectAsset("projects/ferma1.png"),
+      photos: [
+        projectAsset("projects/ferma1.png"),
+        projectAsset("projects/ferma2.png"),
+        projectAsset("projects/ferma3.png"),
+      ],
+    },
   ];
 
   useEffect(() => {
