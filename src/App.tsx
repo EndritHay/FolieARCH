@@ -223,7 +223,9 @@ function App() {
       image: projectAsset("projects/tregu1.png"),
       photos: [
         projectAsset("projects/tregu1.png"),
-       
+        projectAsset("projects/tregu2.png"),
+        projectAsset("projects/tregu3.png"),
+          
       ],
       videos: []
     }
