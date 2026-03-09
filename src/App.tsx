@@ -217,11 +217,14 @@ function App() {
       videos: []
     },
     {
-      title: "Cultural Center",
-      description: "Bridging art and architecture",
+      title: "Tregu i Presheves",
+      description: "Traditional Albanian bazaar",
       icon: Square3Stack3DIcon,
-      image: "https://images.unsplash.com/photo-1600607687644-aac4c3eab3c4",
-      photos: ["https://images.unsplash.com/photo-1600607687644-aac4c3eab3c4"],
+      image: projectAsset("projects/tregu1.png"),
+      photos: [
+        projectAsset("projects/tregu1.png"),
+       
+      ],
       videos: []
     }
   ];
