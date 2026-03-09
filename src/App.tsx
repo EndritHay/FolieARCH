@@ -225,7 +225,7 @@ function App() {
         projectAsset("projects/tregu1.png"),
         projectAsset("projects/tregu2.png"),
         projectAsset("projects/tregu3.png"),
-          
+        projectAsset("projects/tregu4.png"),
       ],
       videos: []
     }
