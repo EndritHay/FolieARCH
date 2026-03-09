@@ -188,7 +188,7 @@ function App() {
       description: "A vibrant urban park blending modern landscape architecture with community gathering spaces",
       icon: HomeIcon,
       image: projectAsset("projects/pavarsiapark1.png"),
-      photos: [projectAsset("projects/pavarsiapark1.png")],
+      photos: [projectAsset("projects/pavarsiapark1.png"), projectAsset("projects/parkumain.png")],
       videos: [
         projectAsset("projects/parkupavarsia1.mp4"),
         projectAsset("projects/parkupavarsia2.mp4"),
@@ -226,9 +226,21 @@ function App() {
         projectAsset("projects/tregu2.png"),
         projectAsset("projects/tregu3.png"),
         projectAsset("projects/tregu4.png"),
+        projectAsset("projects/tregu6.png"),
       ],
       videos: []
+    },
+    {
+      title: "Stacioni i Trenit",
+      description: "Train station",
+      icon: Square3Stack3DIcon,
+      image: projectAsset("projects/ferizaj1.png"),
+      photos: [
+        projectAsset("projects/ferizaj1.png"),
+        projectAsset("projects/ferizaj2.png"),
+      ],
     }
+
   ];
 
   useEffect(() => {
