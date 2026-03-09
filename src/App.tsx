@@ -1427,7 +1427,7 @@ function App() {
                             allowFullScreen
                           />
                         ) : (
-                          <video src={url} controls className="w-full aspect-video" />
+                          <video key={url} src={url} controls preload="metadata" className="w-full aspect-video" playsInline />
                         );
                       })()}
                     </div>
