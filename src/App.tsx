@@ -206,7 +206,14 @@ function App() {
       description: "A private residence",
       icon: BuildingOffice2Icon,
       image: projectAsset("projects/muminkamberi1.png"),
-      photos: ["https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"],
+      photos: [
+        projectAsset("projects/muminkamberi2.png"),
+        projectAsset("projects/muminkamberi3.png"),
+        projectAsset("projects/muminkamberi4.png"),
+        projectAsset("projects/muminkamberi5.png"),
+        projectAsset("projects/muminkamberi6.png"),
+
+      ],
       videos: []
     },
     {
