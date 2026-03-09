@@ -202,10 +202,10 @@ function App() {
       ]
     },
     {
-      title: "Urban Complex",
-      description: "Redefining urban living spaces",
+      title: "Shtepi Private",
+      description: "A private residence",
       icon: BuildingOffice2Icon,
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+      image: projectAsset("projects/muminkamberi1.png"),
       photos: ["https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"],
       videos: []
     },
