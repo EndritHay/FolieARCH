@@ -207,9 +207,9 @@ function App() {
       icon: BuildingOffice2Icon,
       image: projectAsset("projects/muminkamberi1.png"),
       photos: [
-        projectAsset("projects/muminkamberi2.png"),
-        projectAsset("projects/muminkamberi3.png"),
-        projectAsset("projects/muminkamberi4.png"),
+        projectAsset("projects/muminkamberi1.png"),
+        // projectAsset("projects/muminkamberi3.png"),
+        // projectAsset("projects/muminkamberi4.png"),
         projectAsset("projects/muminkamberi5.png"),
         projectAsset("projects/muminkamberi6.png"),
 
@@ -238,6 +238,26 @@ function App() {
       photos: [
         projectAsset("projects/ferizaj1.png"),
         projectAsset("projects/ferizaj2.png"),
+      ],
+    },
+    {
+      title: "Shtepi private",
+      description: "a private residence",
+      icon: Square3Stack3DIcon,
+      image: projectAsset("projects/asllanasllani.png"),
+      photos: [
+        projectAsset("projects/download.png"),
+        projectAsset("projects/asllanasllani2.png"),
+      ],
+    },
+
+    {
+      title: "Shtepi private nje kateshe",
+      description: "a private residence",
+      icon: Square3Stack3DIcon,
+      image: projectAsset("projects/concreteedited.png"),
+      photos: [
+        projectAsset("projects/asllaninotable.png"),
       ],
     },
     
