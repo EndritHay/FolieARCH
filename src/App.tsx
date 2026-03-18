@@ -47,6 +47,309 @@ function App() {
   const [modalTab, setModalTab] = useState<'photos' | 'videos'>('photos');
   const [modalPhotoIndex, setModalPhotoIndex] = useState<number | null>(null);
   const [modalVideoIndex, setModalVideoIndex] = useState(0);
+  const [lang, setLang] = useState<'en' | 'al' | 'sr' | 'de'>('en');
+
+  const translations = {
+    en: {
+      'hero.subtitle': 'spaces through innovative architectural design',
+      'hero.transforming': 'Transforming',
+      'hero.viewProjects': 'View Projects',
+      'hero.exploreMore': 'Explore More',
+      'nav.home': 'Home',
+      'nav.projects': 'Projects',
+      'nav.process': 'Process',
+      'nav.about': 'About',
+      'nav.contact': 'Contact',
+      'nav.cv': 'CV',
+      'nav.tagline': 'Transforming spaces through innovative design',
+      'sections.featuredProjects': 'Featured Projects',
+      'sections.ourProcess': 'Our Process',
+      'sections.designPhilosophy': 'Design Philosophy',
+      'sections.exploreLayers': 'Explore Building Layers',
+      'sections.designInspiration': 'Design Inspiration',
+      'layers.foundation': 'Foundation',
+      'layers.foundationDesc': 'The base that supports the entire structure',
+      'layers.structure': 'Structure',
+      'layers.structureDesc': 'Main framework and load-bearing elements',
+      'layers.interior': 'Interior',
+      'layers.interiorDesc': 'Internal spaces and room layouts',
+      'layers.facade': 'Facade',
+      'layers.facadeDesc': 'External appearance and finishing',
+      'about.innovation': 'Innovation',
+      'about.innovationDesc': 'Pushing boundaries through creative architectural solutions',
+      'about.sustainability': 'Sustainability',
+      'about.sustainabilityDesc': 'Harmonizing design with environmental consciousness',
+      'contact.title': 'Get in Touch',
+      'contact.subtitle': "Let's create something extraordinary together",
+      'contact.name': 'Your Name',
+      'contact.email': 'Your Email',
+      'contact.message': 'Your Message',
+      'contact.send': 'Send Message',
+      'modal.close': 'Close',
+      'modal.photos': 'Photos',
+      'modal.videos': 'Videos',
+      'modal.viewDetails': 'View Details',
+      'modal.prevVideo': 'Previous video',
+      'modal.nextVideo': 'Next video',
+      'modal.photoHint': 'Click any photo to view it larger. Use arrows to move between photos.',
+      'modal.videoHint': 'Watch the video below. Use the buttons to see more videos.',
+      'modal.videoOf': 'of',
+      'modal.videoLabel': 'Video',
+      'modal.photoLabel': 'Photo',
+      'modal.noMedia': 'No photos or videos added yet for this project.',
+      'footer.goToTop': 'Go to Top',
+      'footer.tagline': "Folie's Architectural Masterpiece",
+      'process.discovery': 'Discovery & Vision',
+      'process.discoveryDesc': 'We begin by understanding your aspirations, requirements, and unique vision for the project. This phase sets the foundation for our creative journey together.',
+      'process.discoveryF1': 'Client Consultation',
+      'process.discoveryF2': 'Site Analysis',
+      'process.discoveryF3': 'Budget Planning',
+      'process.discoveryF4': 'Initial Sketches',
+      'process.concept': 'Concept Development',
+      'process.conceptDesc': 'Transforming ideas into tangible concepts through detailed sketches, 3D visualizations, and innovative architectural solutions that align with your vision.',
+      'process.conceptF1': 'Design Exploration',
+      'process.conceptF2': '3D Modeling',
+      'process.conceptF3': 'Material Selection',
+      'process.conceptF4': 'Spatial Planning',
+      'process.technical': 'Technical Design',
+      'process.technicalDesc': 'Developing comprehensive technical drawings and specifications that ensure your project meets all regulatory requirements while maintaining design integrity.',
+      'process.technicalF1': 'Detailed Drawings',
+      'process.technicalF2': 'Building Codes',
+      'process.technicalF3': 'Specifications',
+      'process.technicalF4': 'Coordination',
+      'process.realization': 'Project Realization',
+      'process.realizationDesc': 'Bringing your vision to life through meticulous execution, quality control, and continuous communication to ensure every detail meets our high standards.',
+      'process.realizationF1': 'Construction Support',
+      'process.realizationF2': 'Quality Assurance',
+      'process.realizationF3': 'Timeline Management',
+      'process.realizationF4': 'Final Delivery',
+    },
+    al: {
+      'hero.subtitle': 'hapësirat nëpërmjet dizajnit arkitektonik inovativ',
+      'hero.transforming': 'Duke Transformuar',
+      'hero.viewProjects': 'Shiko Projektet',
+      'hero.exploreMore': 'Eksploro Më Shumë',
+      'nav.home': 'Kreu',
+      'nav.projects': 'Projekte',
+      'nav.process': 'Procesi',
+      'nav.about': 'Rreth Nesh',
+      'nav.contact': 'Kontakt',
+      'nav.cv': 'CV',
+      'nav.tagline': 'Duke transformuar hapësirat nëpërmjet dizajnit inovativ',
+      'sections.featuredProjects': 'Projektet e Zgjedhura',
+      'sections.ourProcess': 'Procesi Ynë',
+      'sections.designPhilosophy': 'Filozofia e Dizajnit',
+      'sections.exploreLayers': 'Eksploro Shtresat e Ndërtesës',
+      'sections.designInspiration': 'Inspirim Dizajni',
+      'layers.foundation': 'Themeli',
+      'layers.foundationDesc': 'Baza që mbështet të gjithë strukturën',
+      'layers.structure': 'Struktura',
+      'layers.structureDesc': 'Skelet kryesor dhe elementë mbajtës',
+      'layers.interior': 'Interiori',
+      'layers.interiorDesc': 'Hapësirat e brendshme dhe planet e dhomave',
+      'layers.facade': 'Fasada',
+      'layers.facadeDesc': 'Pamja e jashtme dhe përfundimi',
+      'about.innovation': 'Inovacion',
+      'about.innovationDesc': 'Duke zgjeruar kufijtë nëpërmjet zgjidhjeve krijuese arkitektonike',
+      'about.sustainability': 'Qëndrueshmëri',
+      'about.sustainabilityDesc': 'Harmonizimi i dizajnit me vetëdijen mjedisore',
+      'contact.title': 'Na Kontaktoni',
+      'contact.subtitle': 'Le të krijojmë diçka të jashtëzakonshme bashkë',
+      'contact.name': 'Emri Juaj',
+      'contact.email': 'Email-i Juaj',
+      'contact.message': 'Mesazhi Juaj',
+      'contact.send': 'Dërgo Mesazhin',
+      'modal.close': 'Mbyll',
+      'modal.photos': 'Foto',
+      'modal.videos': 'Video',
+      'modal.viewDetails': 'Shiko Detajet',
+      'modal.prevVideo': 'Video i mëparshëm',
+      'modal.nextVideo': 'Video tjetër',
+      'modal.photoHint': 'Klikoni çdo foto për ta parë më të madhe. Përdorni shigjetat për të lëvizur.',
+      'modal.videoHint': 'Shikoni videon më poshtë. Përdorni butonat për të parë video të tjera.',
+      'modal.videoOf': 'nga',
+      'modal.videoLabel': 'Video',
+      'modal.photoLabel': 'Foto',
+      'modal.noMedia': 'Nuk janë shtuar foto ose video ende për këtë projekt.',
+      'footer.goToTop': 'Shko Lart',
+      'footer.tagline': "Kryevepra Arkitektonike e Folie's",
+      'process.discovery': 'Zbulimi & Vizioni',
+      'process.discoveryDesc': 'Fillojmë duke kuptuar aspiratat, kërkesat dhe vizionin tuaj unik për projektin. Kjo fazë vendos themelin e udhëtimit tonë krijues bashkë.',
+      'process.discoveryF1': 'Konsultim me Klientin',
+      'process.discoveryF2': 'Analizë e Vendit',
+      'process.discoveryF3': 'Planifikim Buxheti',
+      'process.discoveryF4': 'Skica Fillestare',
+      'process.concept': 'Zhvillimi i Konceptit',
+      'process.conceptDesc': 'Transformimi i ideve në koncepte të prekshme nëpërmjet skicave të hollësishme, vizualizimeve 3D dhe zgjidhjeve arkitektonike inovative.',
+      'process.conceptF1': 'Eksplorим Dizajni',
+      'process.conceptF2': 'Modelim 3D',
+      'process.conceptF3': 'Zgjedhja e Materialeve',
+      'process.conceptF4': 'Planifikim Hapësinor',
+      'process.technical': 'Dizajni Teknik',
+      'process.technicalDesc': 'Zhvillimi i vizatimeve teknike gjithëpërfshirëse dhe specifikimeve që sigurojnë që projekti juaj plotëson të gjitha kërkesat rregullatore.',
+      'process.technicalF1': 'Vizatime të Hollësishme',
+      'process.technicalF2': 'Kode Ndërtimi',
+      'process.technicalF3': 'Specifikimet',
+      'process.technicalF4': 'Koordinim',
+      'process.realization': 'Realizimi i Projektit',
+      'process.realizationDesc': 'Jetësimi i vizionit tuaj nëpërmjet ekzekutimit të kujdesshëm, kontrollit të cilësisë dhe komunikimit të vazhdueshëm.',
+      'process.realizationF1': 'Mbështetje Ndërtimi',
+      'process.realizationF2': 'Sigurimi i Cilësisë',
+      'process.realizationF3': 'Menaxhimi i Afatit',
+      'process.realizationF4': 'Dorëzimi Final',
+    },
+    sr: {
+      'hero.subtitle': 'prostore kroz inovativni arhitektonski dizajn',
+      'hero.transforming': 'Transformišući',
+      'hero.viewProjects': 'Pogledaj Projekte',
+      'hero.exploreMore': 'Istraži Više',
+      'nav.home': 'Početna',
+      'nav.projects': 'Projekti',
+      'nav.process': 'Proces',
+      'nav.about': 'O Nama',
+      'nav.contact': 'Kontakt',
+      'nav.cv': 'CV',
+      'nav.tagline': 'Transformišući prostore kroz inovativni dizajn',
+      'sections.featuredProjects': 'Istaknuti Projekti',
+      'sections.ourProcess': 'Naš Proces',
+      'sections.designPhilosophy': 'Filozofija Dizajna',
+      'sections.exploreLayers': 'Istraži Slojeve Zgrade',
+      'sections.designInspiration': 'Inspiracija Dizajna',
+      'layers.foundation': 'Temelj',
+      'layers.foundationDesc': 'Osnova koja podupire čitavu strukturu',
+      'layers.structure': 'Struktura',
+      'layers.structureDesc': 'Glavni okvir i nosivi elementi',
+      'layers.interior': 'Enterijer',
+      'layers.interiorDesc': 'Unutrašnji prostori i rasporedi prostorija',
+      'layers.facade': 'Fasada',
+      'layers.facadeDesc': 'Spoljašnji izgled i završna obrada',
+      'about.innovation': 'Inovacija',
+      'about.innovationDesc': 'Pomeranje granica kroz kreativna arhitektonska rešenja',
+      'about.sustainability': 'Održivost',
+      'about.sustainabilityDesc': 'Usklađivanje dizajna sa ekološkom svešću',
+      'contact.title': 'Kontaktirajte Nas',
+      'contact.subtitle': 'Hajde da zajedno stvorimo nešto izvanredno',
+      'contact.name': 'Vaše Ime',
+      'contact.email': 'Vaš Email',
+      'contact.message': 'Vaša Poruka',
+      'contact.send': 'Pošalji Poruku',
+      'modal.close': 'Zatvori',
+      'modal.photos': 'Fotografije',
+      'modal.videos': 'Video',
+      'modal.viewDetails': 'Pogledaj Detalje',
+      'modal.prevVideo': 'Prethodni video',
+      'modal.nextVideo': 'Sledeći video',
+      'modal.photoHint': 'Kliknite na bilo koju fotografiju da je vidite veću. Koristite strelice za kretanje.',
+      'modal.videoHint': 'Pogledajte video ispod. Koristite dugmad za više videa.',
+      'modal.videoOf': 'od',
+      'modal.videoLabel': 'Video',
+      'modal.photoLabel': 'Fotografija',
+      'modal.noMedia': 'Za ovaj projekat još uvek nisu dodate fotografije ili video snimci.',
+      'footer.goToTop': 'Idi na Vrh',
+      'footer.tagline': "Folie's Arhitektonsko Remek-delo",
+      'process.discovery': 'Otkrivanje & Vizija',
+      'process.discoveryDesc': 'Počinjemo razumevanjem vaših aspiracija, zahteva i jedinstvene vizije za projekat. Ova faza postavlja temelj našeg zajedničkog kreativnog putovanja.',
+      'process.discoveryF1': 'Konsultacija sa Klijentom',
+      'process.discoveryF2': 'Analiza Lokacije',
+      'process.discoveryF3': 'Planiranje Budžeta',
+      'process.discoveryF4': 'Početne Skice',
+      'process.concept': 'Razvoj Koncepta',
+      'process.conceptDesc': 'Pretvaranje ideja u opipljive koncepte kroz detaljne skice, 3D vizualizacije i inovativna arhitektonska rešenja.',
+      'process.conceptF1': 'Istraživanje Dizajna',
+      'process.conceptF2': '3D Modelovanje',
+      'process.conceptF3': 'Izbor Materijala',
+      'process.conceptF4': 'Prostorno Planiranje',
+      'process.technical': 'Tehnički Dizajn',
+      'process.technicalDesc': 'Razvijanje sveobuhvatnih tehničkih crteža i specifikacija koje osiguravaju da vaš projekat ispunjava sve regulatorne zahteve.',
+      'process.technicalF1': 'Detaljni Crteži',
+      'process.technicalF2': 'Građevinski Kodovi',
+      'process.technicalF3': 'Specifikacije',
+      'process.technicalF4': 'Koordinacija',
+      'process.realization': 'Realizacija Projekta',
+      'process.realizationDesc': 'Oživljavanje vaše vizije kroz pedantno izvođenje, kontrolu kvaliteta i stalnu komunikaciju.',
+      'process.realizationF1': 'Podrška Gradnji',
+      'process.realizationF2': 'Osiguranje Kvaliteta',
+      'process.realizationF3': 'Upravljanje Rokovima',
+      'process.realizationF4': 'Finalna Isporuka',
+    },
+    de: {
+      'hero.subtitle': 'durch innovatives architektonisches Design',
+      'hero.transforming': 'Transformieren',
+      'hero.viewProjects': 'Projekte ansehen',
+      'hero.exploreMore': 'Mehr entdecken',
+      'nav.home': 'Startseite',
+      'nav.projects': 'Projekte',
+      'nav.process': 'Prozess',
+      'nav.about': 'Über uns',
+      'nav.contact': 'Kontakt',
+      'nav.cv': 'Lebenslauf',
+      'nav.tagline': 'Räume transformieren durch innovatives Design',
+      'sections.featuredProjects': 'Ausgewählte Projekte',
+      'sections.ourProcess': 'Unser Prozess',
+      'sections.designPhilosophy': 'Designphilosophie',
+      'sections.exploreLayers': 'Gebäudeschichten erkunden',
+      'sections.designInspiration': 'Design-Inspiration',
+      'layers.foundation': 'Fundament',
+      'layers.foundationDesc': 'Die Basis, die die gesamte Struktur trägt',
+      'layers.structure': 'Struktur',
+      'layers.structureDesc': 'Hauptrahmen und tragende Elemente',
+      'layers.interior': 'Innenraum',
+      'layers.interiorDesc': 'Innenbereiche und Raumaufteilungen',
+      'layers.facade': 'Fassade',
+      'layers.facadeDesc': 'Äußeres Erscheinungsbild und Finishes',
+      'about.innovation': 'Innovation',
+      'about.innovationDesc': 'Grenzen durch kreative architektonische Lösungen verschieben',
+      'about.sustainability': 'Nachhaltigkeit',
+      'about.sustainabilityDesc': 'Design im Einklang mit Umweltbewusstsein harmonisieren',
+      'contact.title': 'Kontakt aufnehmen',
+      'contact.subtitle': 'Lass uns gemeinsam etwas Außergewöhnliches erschaffen',
+      'contact.name': 'Ihr Name',
+      'contact.email': 'Ihre E-Mail',
+      'contact.message': 'Ihre Nachricht',
+      'contact.send': 'Nachricht senden',
+      'modal.close': 'Schließen',
+      'modal.photos': 'Fotos',
+      'modal.videos': 'Videos',
+      'modal.viewDetails': 'Details ansehen',
+      'modal.prevVideo': 'Vorheriges Video',
+      'modal.nextVideo': 'Nächstes Video',
+      'modal.photoHint': 'Klicken Sie auf ein Foto, um es größer anzuzeigen. Verwenden Sie Pfeile zum Navigieren.',
+      'modal.videoHint': 'Sehen Sie das Video unten. Verwenden Sie die Schaltflächen für weitere Videos.',
+      'modal.videoOf': 'von',
+      'modal.videoLabel': 'Video',
+      'modal.photoLabel': 'Foto',
+      'modal.noMedia': 'Für dieses Projekt wurden noch keine Fotos oder Videos hinzugefügt.',
+      'footer.goToTop': 'Nach oben',
+      'footer.tagline': "Folie's Architektonisches Meisterwerk",
+      'process.discovery': 'Entdeckung & Vision',
+      'process.discoveryDesc': 'Wir beginnen damit, Ihre Bestrebungen, Anforderungen und einzigartigen Visionen für das Projekt zu verstehen. Diese Phase legt den Grundstein für unsere gemeinsame kreative Reise.',
+      'process.discoveryF1': 'Kundenberatung',
+      'process.discoveryF2': 'Standortanalyse',
+      'process.discoveryF3': 'Budgetplanung',
+      'process.discoveryF4': 'Erste Skizzen',
+      'process.concept': 'Konzeptentwicklung',
+      'process.conceptDesc': 'Ideen in greifbare Konzepte umwandeln durch detaillierte Skizzen, 3D-Visualisierungen und innovative architektonische Lösungen.',
+      'process.conceptF1': 'Design-Erkundung',
+      'process.conceptF2': '3D-Modellierung',
+      'process.conceptF3': 'Materialauswahl',
+      'process.conceptF4': 'Raumplanung',
+      'process.technical': 'Technisches Design',
+      'process.technicalDesc': 'Entwicklung umfassender technischer Zeichnungen und Spezifikationen, die sicherstellen, dass Ihr Projekt alle regulatorischen Anforderungen erfüllt.',
+      'process.technicalF1': 'Detailzeichnungen',
+      'process.technicalF2': 'Bauvorschriften',
+      'process.technicalF3': 'Spezifikationen',
+      'process.technicalF4': 'Koordination',
+      'process.realization': 'Projektumsetzung',
+      'process.realizationDesc': 'Ihre Vision durch sorgfältige Ausführung, Qualitätskontrolle und kontinuierliche Kommunikation zum Leben erwecken.',
+      'process.realizationF1': 'Baubegleitung',
+      'process.realizationF2': 'Qualitätssicherung',
+      'process.realizationF3': 'Terminmanagement',
+      'process.realizationF4': 'Endlieferung',
+    },
+  } as const;
+
+  type TranslationKey = keyof typeof translations.en;
+  const t = (key: TranslationKey): string => translations[lang][key] ?? translations.en[key];
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -300,63 +603,63 @@ function App() {
 
   const processSteps = [
     {
-      title: "Discovery & Vision",
-      description: "We begin by understanding your aspirations, requirements, and unique vision for the project. This phase sets the foundation for our creative journey together.",
+      title: t('process.discovery'),
+      description: t('process.discoveryDesc'),
       icon: (
         <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       features: [
-        "Client Consultation",
-        "Site Analysis",
-        "Budget Planning",
-        "Initial Sketches"
+        t('process.discoveryF1'),
+        t('process.discoveryF2'),
+        t('process.discoveryF3'),
+        t('process.discoveryF4'),
       ]
     },
     {
-      title: "Concept Development",
-      description: "Transforming ideas into tangible concepts through detailed sketches, 3D visualizations, and innovative architectural solutions that align with your vision.",
+      title: t('process.concept'),
+      description: t('process.conceptDesc'),
       icon: (
         <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       features: [
-        "Design Exploration",
-        "3D Modeling",
-        "Material Selection",
-        "Spatial Planning"
+        t('process.conceptF1'),
+        t('process.conceptF2'),
+        t('process.conceptF3'),
+        t('process.conceptF4'),
       ]
     },
     {
-      title: "Technical Design",
-      description: "Developing comprehensive technical drawings and specifications that ensure your project meets all regulatory requirements while maintaining design integrity.",
+      title: t('process.technical'),
+      description: t('process.technicalDesc'),
       icon: (
         <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       features: [
-        "Detailed Drawings",
-        "Building Codes",
-        "Specifications",
-        "Coordination"
+        t('process.technicalF1'),
+        t('process.technicalF2'),
+        t('process.technicalF3'),
+        t('process.technicalF4'),
       ]
     },
     {
-      title: "Project Realization",
-      description: "Bringing your vision to life through meticulous execution, quality control, and continuous communication to ensure every detail meets our high standards.",
+      title: t('process.realization'),
+      description: t('process.realizationDesc'),
       icon: (
         <svg className="w-8 h-8 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
       features: [
-        "Construction Support",
-        "Quality Assurance",
-        "Timeline Management",
-        "Final Delivery"
+        t('process.realizationF1'),
+        t('process.realizationF2'),
+        t('process.realizationF3'),
+        t('process.realizationF4'),
       ]
     }
   ];
@@ -375,21 +678,49 @@ function App() {
   };
 
   const navigationItems = [
-    { name: 'Home', icon: HomeIcon, href: '#hero' },
-    { name: 'Projects', icon: Square3Stack3DIcon, href: '#projects' },
-    { name: 'Process', icon: DocumentIcon, href: '#process' },
-    { name: 'About', icon: UserGroupIcon, href: '#about' },
-    { name: 'Contact', icon: PhoneIcon, href: '#contact' },
+    { name: t('nav.home'), icon: HomeIcon, href: '#hero' },
+    { name: t('nav.projects'), icon: Square3Stack3DIcon, href: '#projects' },
+    { name: t('nav.process'), icon: DocumentIcon, href: '#process' },
+    { name: t('nav.about'), icon: UserGroupIcon, href: '#about' },
+    { name: t('nav.contact'), icon: PhoneIcon, href: '#contact' },
     { 
-      name: 'CV', 
+      name: t('nav.cv'), 
       icon: DocumentIcon, 
       href: '/Folies_CV.pdf',
       download: true
     }
   ];
 
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="relative min-h-screen">
+      {/* Language Switcher */}
+      <motion.div
+        className="fixed top-4 left-4 z-50 flex gap-1 bg-dark/50 backdrop-blur-sm border border-white/10 rounded-full px-2 py-1"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        {(['en', 'al', 'sr', 'de'] as const).map((code) => (
+          <motion.button
+            key={code}
+            onClick={() => setLang(code)}
+            className={`px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+              lang === code
+                ? 'bg-accent text-white shadow-lg shadow-accent/30'
+                : 'text-white/50 hover:text-white/80'
+            }`}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {code}
+          </motion.button>
+        ))}
+      </motion.div>
+
       {/* Sidebar Toggle Button */}
       <motion.button
         className="fixed top-4 right-4 z-50 p-2 rounded-full bg-dark/50 backdrop-blur-sm border border-white/10 text-white"
@@ -440,7 +771,7 @@ function App() {
               transition={{ delay: 0.2 }}
             >
               <p className="font-medium text-accent mb-2">Folie's ARCH</p>
-              <p>Transforming spaces through innovative design</p>
+              <p>{t('nav.tagline')}</p>
             </motion.div>
           </div>
         </div>
@@ -545,9 +876,9 @@ function App() {
                   ease: "easeInOut"
                 }}
               >
-                Transforming
+                {t('hero.transforming')}
               </motion.span>{" "}
-              spaces through innovative architectural design
+              {t('hero.subtitle')}
             </motion.p>
 
             <motion.div
@@ -560,6 +891,7 @@ function App() {
                 className="btn btn-secondary group relative overflow-hidden text-white"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => scrollTo('projects')}
               >
                 <motion.div
                   className="absolute inset-0 bg-accent opacity-20"
@@ -574,7 +906,7 @@ function App() {
                   }}
                 />
                 <Square3Stack3DIcon className="w-6 h-6 mr-2" />
-                <span>View Projects</span>
+                <span>{t('hero.viewProjects')}</span>
               </motion.button>
               
               <motion.button
@@ -584,6 +916,7 @@ function App() {
                   boxShadow: "0 0 20px rgba(233, 69, 96, 0.3)"
                 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => scrollTo('process')}
               >
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -595,7 +928,7 @@ function App() {
                 >
                   <CubeIcon className="w-6 h-6 mr-2" />
                 </motion.div>
-                Explore More
+                {t('hero.exploreMore')}
               </motion.button>
             </motion.div>
           </motion.div>
@@ -648,7 +981,7 @@ function App() {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-bold text-center mb-16 text-white"
             >
-              Featured Projects
+              {t('sections.featuredProjects')}
             </motion.h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -690,7 +1023,7 @@ function App() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        View Details
+                        {t('modal.viewDetails')}
                       </motion.button>
                     </div>
                   </motion.div>
@@ -714,7 +1047,7 @@ function App() {
               viewport={{ once: true }}
               className="text-4xl md:text-6xl font-bold text-center mb-16 text-white"
             >
-              Our Process
+              {t('sections.ourProcess')}
             </motion.h2>
 
             {/* Interactive Process Timeline */}
@@ -828,7 +1161,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Design Philosophy
+              {t('sections.designPhilosophy')}
             </motion.h2>
 
             <div className="relative h-[600px] rounded-2xl overflow-hidden bg-dark/50 backdrop-blur-sm border border-white/10">
@@ -971,8 +1304,8 @@ function App() {
                     whileHover={{ scale: 1.05, rotateY: 10 }}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
-                    <h3 className="text-2xl font-bold mb-4 text-white">Innovation</h3>
-                    <p className="text-white/80">Pushing boundaries through creative architectural solutions</p>
+                    <h3 className="text-2xl font-bold mb-4 text-white">{t('about.innovation')}</h3>
+                    <p className="text-white/80">{t('about.innovationDesc')}</p>
                     <motion.div
                       className="absolute -right-4 top-1/2 w-8 h-[2px] bg-accent"
                       initial={{ width: 0 }}
@@ -993,8 +1326,8 @@ function App() {
                     whileHover={{ scale: 1.05, rotateY: -10 }}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
-                    <h3 className="text-2xl font-bold mb-4 text-white">Sustainability</h3>
-                    <p className="text-white/80">Harmonizing design with environmental consciousness</p>
+                    <h3 className="text-2xl font-bold mb-4 text-white">{t('about.sustainability')}</h3>
+                    <p className="text-white/80">{t('about.sustainabilityDesc')}</p>
                     <motion.div
                       className="absolute -left-4 top-1/2 w-8 h-[2px] bg-accent"
                       initial={{ width: 0 }}
@@ -1042,7 +1375,7 @@ function App() {
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  Explore Building Layers
+                  {t('sections.exploreLayers')}
                 </motion.h3>
 
                 <div className="flex flex-wrap justify-center gap-8 items-start">
@@ -1142,10 +1475,10 @@ function App() {
                   {/* Layer Controls */}
                   <div className="flex flex-col gap-4 min-w-[250px]">
                     {[
-                      { id: 'foundation', label: 'Foundation', description: 'The base that supports the entire structure' },
-                      { id: 'structure', label: 'Structure', description: 'Main framework and load-bearing elements' },
-                      { id: 'interior', label: 'Interior', description: 'Internal spaces and room layouts' },
-                      { id: 'facade', label: 'Facade', description: 'External appearance and finishing' }
+                      { id: 'foundation', label: t('layers.foundation'), description: t('layers.foundationDesc') },
+                      { id: 'structure', label: t('layers.structure'), description: t('layers.structureDesc') },
+                      { id: 'interior', label: t('layers.interior'), description: t('layers.interiorDesc') },
+                      { id: 'facade', label: t('layers.facade'), description: t('layers.facadeDesc') }
                     ].map(layer => (
                       <motion.div
                         key={layer.id}
@@ -1175,7 +1508,7 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Design Inspiration
+              {t('sections.designInspiration')}
             </motion.h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
@@ -1270,9 +1603,9 @@ function App() {
               className="max-w-2xl mx-auto"
             >
               <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-6xl font-bold mb-4">Get in Touch</h2>
+                <h2 className="text-4xl md:text-6xl font-bold mb-4">{t('contact.title')}</h2>
                 <p className="text-xl text-accent/80">
-                  Let's create something extraordinary together
+                  {t('contact.subtitle')}
                 </p>
               </div>
 
@@ -1285,7 +1618,7 @@ function App() {
                   <div className="group">
                     <input
                       type="text"
-                      placeholder="Your Name"
+                      placeholder={t('contact.name')}
                       className="input group-hover:bg-white/20 transition-all duration-300"
                     />
                     <div className="h-0.5 w-0 bg-accent group-hover:w-full transition-all duration-300"></div>
@@ -1294,7 +1627,7 @@ function App() {
                   <div className="group">
                     <input
                       type="email"
-                      placeholder="Your Email"
+                      placeholder={t('contact.email')}
                       className="input group-hover:bg-white/20 transition-all duration-300"
                     />
                     <div className="h-0.5 w-0 bg-accent group-hover:w-full transition-all duration-300"></div>
@@ -1302,7 +1635,7 @@ function App() {
 
                   <div className="group">
                     <textarea
-                      placeholder="Your Message"
+                      placeholder={t('contact.message')}
                       rows={4}
                       className="input resize-none group-hover:bg-white/20 transition-all duration-300"
                     />
@@ -1315,7 +1648,7 @@ function App() {
                     whileTap={{ scale: 0.95 }}
                   >
                     <span className="relative inline-flex items-center">
-                      Send Message
+                      {t('contact.send')}
                     </span>
                   </motion.button>
                 </div>
@@ -1336,7 +1669,7 @@ function App() {
                   rotateY: mousePosition.x * 20,
                 }}
               >
-                <h3 className="text-2xl font-bold mb-2"> Folie's Architectural Masterpiece </h3>
+                <h3 className="text-2xl font-bold mb-2"> {t('footer.tagline')} </h3>
               </motion.div>
               <p className="text-accent/60">
                 © {new Date().getFullYear()} Aligator.xyz All rights reserved.
@@ -1362,7 +1695,7 @@ function App() {
               >
                 <ArrowUpIcon className="h-8 w-8 text-accent mx-auto" />
               </motion.div>
-              <span className="text-accent text-sm mt-2">Go to Top</span>
+              <span className="text-accent text-sm mt-2">{t('footer.goToTop')}</span>
             </motion.div>
           </div>
         </footer>
@@ -1399,7 +1732,7 @@ function App() {
                   aria-label="Close"
                 >
                   <XMarkIcon className="w-5 h-5 shrink-0" />
-                  <span>Close</span>
+                  <span>{t('modal.close')}</span>
                 </button>
               </div>
 
@@ -1416,7 +1749,7 @@ function App() {
                     }`}
                   >
                     <PhotoIcon className="w-6 h-6" />
-                    <span>Photos</span>
+                    <span>{t('modal.photos')}</span>
                     <span className="text-sm opacity-80">({selectedProject.photos?.length ?? 0})</span>
                   </button>
                   <button
@@ -1429,7 +1762,7 @@ function App() {
                     }`}
                   >
                     <FilmIcon className="w-6 h-6" />
-                    <span>Videos</span>
+                    <span>{t('modal.videos')}</span>
                     <span className="text-sm opacity-80">({selectedProject.videos?.length ?? 0})</span>
                   </button>
                 </div>
@@ -1439,7 +1772,7 @@ function App() {
               <div className="flex-1 overflow-y-auto p-4 sm:p-6">
                 {modalTab === "photos" && (selectedProject.photos?.length ?? 0) > 0 && (
                   <div>
-                    <p className="text-white/70 text-sm mb-4">Click any photo to view it larger. Use arrows to move between photos.</p>
+                    <p className="text-white/70 text-sm mb-4">{t('modal.photoHint')}</p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {selectedProject.photos!.map((url, i) => (
                         <button
@@ -1461,7 +1794,7 @@ function App() {
 
                 {modalTab === "videos" && (selectedProject.videos?.length ?? 0) > 0 && (
                   <div className="space-y-4">
-                    <p className="text-white/70 text-sm">Watch the video below. Use the buttons to see more videos.</p>
+                    <p className="text-white/70 text-sm">{t('modal.videoHint')}</p>
                     <div className="rounded-xl overflow-hidden bg-black/50 border border-white/10">
                       {(() => {
                         const url = selectedProject.videos![modalVideoIndex];
@@ -1494,10 +1827,10 @@ function App() {
                         className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-white/20"
                       >
                         <ArrowLeftIcon className="w-5 h-5" />
-                        <span>Previous video</span>
+                        <span>{t('modal.prevVideo')}</span>
                       </button>
                       <span className="text-white/80 font-medium">
-                        Video {modalVideoIndex + 1} of {selectedProject.videos!.length}
+                        {t('modal.videoLabel')} {modalVideoIndex + 1} {t('modal.videoOf')} {selectedProject.videos!.length}
                       </span>
                       <button
                         type="button"
@@ -1505,7 +1838,7 @@ function App() {
                         disabled={modalVideoIndex === selectedProject.videos!.length - 1}
                         className="flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium transition-colors border border-white/20"
                       >
-                        <span>Next video</span>
+                        <span>{t('modal.nextVideo')}</span>
                         <ArrowRightIcon className="w-5 h-5" />
                       </button>
                     </div>
@@ -1513,7 +1846,7 @@ function App() {
                 )}
 
                 {(!selectedProject.photos?.length && !selectedProject.videos?.length) && (
-                  <p className="text-white/70 text-center py-12 text-lg">No photos or videos added yet for this project.</p>
+                  <p className="text-white/70 text-center py-12 text-lg">{t('modal.noMedia')}</p>
                 )}
               </div>
             </motion.div>
@@ -1534,7 +1867,7 @@ function App() {
                     className="absolute top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium z-10"
                   >
                     <XMarkIcon className="w-5 h-5" />
-                    <span>Close</span>
+                    <span>{t('modal.close')}</span>
                   </button>
                   {modalPhotoIndex > 0 && (
                     <button
@@ -1563,7 +1896,7 @@ function App() {
                     </button>
                   )}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">
-                    Photo {modalPhotoIndex + 1} of {selectedProject.photos.length}
+                    {t('modal.photoLabel')} {modalPhotoIndex + 1} {t('modal.videoOf')} {selectedProject.photos.length}
                   </div>
                 </motion.div>
               )}
